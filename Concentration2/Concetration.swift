@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GameplayKit
 
 internal class Concentration {
     var cards = [Card]()
@@ -35,19 +36,12 @@ internal class Concentration {
             }
         }
     }
-    
-    func startNewGame() {
-        flipCount = 0;
-        for index in cards.indices {
-            cards[index].isFaceUp = false
-            cards[index].isMatched = false
-        }
-    }
-    
+        
     init(numberOfPairsOfcards: Int) {
         for _ in 1...numberOfPairsOfcards {
             let card = Card()
             cards += [card, card]
         }
+        cards = (GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cards) as! [Card])
     }
 }

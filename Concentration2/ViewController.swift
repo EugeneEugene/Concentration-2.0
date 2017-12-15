@@ -11,16 +11,16 @@ import UIKit
 class ViewController: UIViewController {
     
     lazy var game = Concentration(numberOfPairsOfcards: (cardsArray.count + 1)/2)
-    
-    
     @IBOutlet var cardsArray: [UIButton]!
-    var emojiArrayHallloween = ["🧛🏼‍♂️","🧟‍♂️","🧠","👻","💀","☠️", "🤖", "🎃","👹"," 👽","🤡","🤐","😱","🕸","🌚", "🧙🏾‍♂️", "🧜🏿‍♂️","🖕🏽"]
-    var themeArrar = [Array<String>]()
-    var emojiArray = ["🧛🏼‍♂️","🧟‍♂️","🧠","👻","💀","☠️", "🤖", "🎃","👹"," 👽","🤡","🤐","😱","🕸","🌚", "🧙🏾‍♂️", "🧜🏿‍♂️","🖕🏽"]
-    var tmpArray = ["🧛🏼‍♂️","🧟‍♂️","🧠","👻","💀","☠️", "🤖", "🎃","👹"," 👽","🤡","🤐","😱","🕸","🌚", "🧙🏾‍♂️", "🧜🏿‍♂️","🖕🏽"]
+    var themeArray = [["👮‍♂️","👩🏽‍🍳","👲🏻","🧒🏿","👴🏻","👩🏼‍🌾","👶🏻"," 🎅🏼","👨🏿‍🚒","👳🏿‍♀️","🕵🏻‍♀️","👩🏻‍🎨","🧝🏿‍♀️", "👩🏿‍💻", "👨‍💻","👩‍🎤"],["🧛🏼‍♂️","🧟‍♂️","🧠","👻","💀","☠️", "🤖", "🎃","👹"," 👽","🤡","🤐","😱","🕸","🌚", "🧙🏾‍♂️", "🧜🏿‍♂️","🖕🏽"]]
+    var emojiArray: Array<String> = []
     var emoji = [Int: String]()
     
     func emoji(for card: Card) -> String {
+        if game.flipCount == 1 {
+            emojiArray.removeAll()
+            emojiArray += themeArray[Int(arc4random_uniform(UInt32(themeArray.count)))]
+        }
         if emoji[card.identifier] == nil, emojiArray.count > 0 {
             let randomEmoji = Int(arc4random_uniform(UInt32(emojiArray.count)))
             emoji[card.identifier] = emojiArray.remove(at: randomEmoji)
@@ -32,12 +32,12 @@ class ViewController: UIViewController {
    
     //start new game
     @IBAction func newGameView(_ sender: UIButton) {
+        game = Concentration(numberOfPairsOfcards: (cardsArray.count + 1)/2)
         emoji = [Int: String]()
-        emojiArray = tmpArray
-        game.startNewGame()
         updateViewFromModel()
     }
     @IBAction func touchCard(_ sender: UIButton) {
+        print("Count of themes: \(themeArray.count)")
         if let chosenCard = cardsArray.index(of: sender) {
             game.choseCard(at: chosenCard)
             updateViewFromModel();
@@ -62,8 +62,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-
     
 }
 

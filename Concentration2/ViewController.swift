@@ -12,15 +12,11 @@ class ViewController: UIViewController {
     
     lazy var game = Concentration(numberOfPairsOfcards: (cardsArray.count + 1)/2)
     
-    var flipCount = 0 {
-        didSet {
-            flipCountView.text = "Flips: \(flipCount)"
-        }
-    }
-    
     
     @IBOutlet var cardsArray: [UIButton]!
-    var emojiArray = ["🧛🏼‍♂️","👄","🧠","👮🏿‍♀️","🛸","🎱", "🌚", "🐖","🐡"]
+    var emojiArray = ["🧛🏼‍♂️","👄","🧠","👮🏿‍♀️","🛸","🎱", "🌚", "🐖","🐡","  🍗","💧","🥋","📺","🛒","♎️", "💝", "🇹🇷","🇹🇳"]
+    var tmpArray =  ["🧛🏼‍♂️","👄","🧠","👮🏿‍♀️","🛸","🎱", "🌚", "🐖","🐡","  🍗","💧","🥋","📺","🛒","♎️", "💝", "🇹🇷","🇹🇳"]
+
     var emoji = [Int: String]()
     
     func emoji(for card: Card) -> String {
@@ -33,8 +29,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var flipCountView: UITextField!
    
+    //start new game
+    @IBAction func newGameView(_ sender: UIButton) {
+        emojiArray = tmpArray
+        game.startNewGame()
+        updateViewFromModel()
+    }
     @IBAction func touchCard(_ sender: UIButton) {
-        flipCount += 1;
         if let chosenCard = cardsArray.index(of: sender) {
             game.choseCard(at: chosenCard)
             updateViewFromModel();
@@ -45,6 +46,7 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel() {
+        flipCountView.text = "Flips: \(game.flipCount)"
         for index in cardsArray.indices {
             let card = game.cards[index]
             let button = cardsArray[index]

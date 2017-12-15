@@ -12,7 +12,8 @@ import GameplayKit
 internal class Concentration {
     var cards = [Card]()
     
-    var flipCount = 0 
+    var flipCount = 0
+    var score = 0;
     
     var indexOfOneAndOnlyFaceUp: Int?
     
@@ -23,8 +24,15 @@ internal class Concentration {
                 if (cards[matchIndex].identifier == cards[index].identifier) {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
+                    score += 1
+                }
+                else {
+                    if(cards[index].isSeen) {
+                        score -= 1
+                    }
                 }
                 cards[index].isFaceUp = true
+                cards[index].isSeen = true
                 indexOfOneAndOnlyFaceUp = nil
             }
             else {
@@ -32,6 +40,7 @@ internal class Concentration {
                     cards[index].isFaceUp = false
                 }
                 cards[index].isFaceUp = true
+                cards[index].isSeen = true
                 indexOfOneAndOnlyFaceUp = index
             }
         }

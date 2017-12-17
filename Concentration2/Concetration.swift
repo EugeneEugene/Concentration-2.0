@@ -10,10 +10,10 @@ import Foundation
 import GameplayKit
 
 internal class Concentration {
-    var cards = [Card]()
+    private(set) var cards = [Card]()
     
-    var flipCount = 0
-    var score = 0;
+    private(set) var flipCount = 0
+    private(set) var score = 0;
     
     var indexOfOneAndOnlyFaceUp: Int?
     

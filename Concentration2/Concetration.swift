@@ -21,7 +21,7 @@ internal class Concentration {
         if !cards[index].isMatched {
             flipCount += 1
             if let matchIndex = indexOfOneAndOnlyFaceUp, matchIndex != index {
-                if (cards[matchIndex].identifier == cards[index].identifier) {
+                if (cards[matchIndex] == cards[index]) {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                     score += 1

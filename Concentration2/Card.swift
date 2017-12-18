@@ -8,15 +8,19 @@
 
 import Foundation
 
-struct Card {
+struct Card: Equatable {
+    static func ==(lhs: Card, rhs: Card) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
     var isFaceUp = false;
     var isMatched = false;
-    var identifier: Int;
+    private(set) var identifier: Int;
     var isSeen = false;
     
     static var identifierFactory = 0;
     
-    static func getUniqueIdentifier() -> Int {
+    private static func getUniqueIdentifier() -> Int {
         identifierFactory += 1
         return identifierFactory
     }

@@ -15,7 +15,27 @@ internal class Concentration {
     private(set) var flipCount = 0
     private(set) var score = 0;
     
-    var indexOfOneAndOnlyFaceUp: Int?
+    var indexOfOneAndOnlyFaceUp: Int? {
+        get {
+            var foundIndex: Int?
+            for index in cards.indices {
+                if cards[index].isFaceUp {
+                    if foundIndex == nil {
+                        foundIndex = index
+                    }
+                    else {
+                        return nil
+                    }
+                }
+            }
+            return foundIndex
+        }
+        set {
+            for index in cards.indices {
+                cards[index].isFaceUp = (index == newValue)
+            }
+        }
+    }
     
     func choseCard(at index: Int) {
         if !cards[index].isMatched {
@@ -33,19 +53,13 @@ internal class Concentration {
                 }
                 cards[index].isFaceUp = true
                 cards[index].isSeen = true
-                indexOfOneAndOnlyFaceUp = nil
             }
             else {
-                for index in cards.indices {
-                    cards[index].isFaceUp = false
-                }
-                cards[index].isFaceUp = true
-                cards[index].isSeen = true
                 indexOfOneAndOnlyFaceUp = index
             }
         }
     }
-        
+    
     init(numberOfPairsOfcards: Int) {
         for _ in 1...numberOfPairsOfcards {
             let card = Card()

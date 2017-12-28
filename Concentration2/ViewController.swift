@@ -1,25 +1,25 @@
-//
-//  ViewController.swift
-//  Concentration2
-//
-//  Created by eugene on 12/12/2017.
-//  Copyright © 2017 monkey_head. All rights reserved.
-//
-
-import UIKit
-
-class ViewController: UIViewController {
+   //
+   //  ViewController.swift
+   //  Concentration2
+   //
+   //  Created by eugene on 12/12/2017.
+   //  Copyright © 2017 monkey_head. All rights reserved.
+   //
+   
+   import UIKit
+   
+   class ViewController: UIViewController {
     
     lazy var game = Concentration(numberOfPairsOfcards: (cardsArray.count + 1)/2)
     @IBOutlet var cardsArray: [UIButton]!
     private let themeArray =
         [
-        ["👮‍♂️","👩🏽‍🍳","👲🏻","🧒🏿","👴🏻","👩🏼‍🌾","👶🏻","🎅🏼","👨🏿‍🚒","👳🏿‍♀️","🕵🏻‍♀️","👩🏻‍🎨","🧝🏿‍♀️","👩🏿‍💻","👨‍💻","👩‍🎤"],
-        ["🧛🏼‍♂️","🧟‍♂️","🧠","👻","💀","☠️","🤖","🎃","👹","👽","🤡","🤐","😱","🕸","🌚", "🧙🏾‍♂️"],
-        ["⚽️","🏀","🏈","⚾️","🎾","🏐", "🎱", "🏉","🏓","🏸","🥅","🏒","🏑","🏏","⛳️","🏹"],
-        ["🚗","🚕","🚙","🚌","🚎","🏎", "🚓", "🚑","🚒","🛴","🚲","🛵","🏍","🚔","✈️","🛫"],
-        ["🏳️","🏴","🏳️‍🌈","🇦🇫","🇦🇽","🇦🇱", "🇦🇷", "🇦🇬","🇦🇶","🇦🇮","🇦🇴","🇦🇩","🇦🇸","🇩🇿","🇦🇲","🇧🇧"],
-        ["💟","☮️","✝️","☪️","🕉","☸️","✡️", "🔯","🕎"," ☯️","☦️","🛐","⛎","♈️","♉️","♊️"]
+            ["👮‍♂️","👩🏽‍🍳","👲🏻","🧒🏿","👴🏻","👩🏼‍🌾","👶🏻","🎅🏼","👨🏿‍🚒","👳🏿‍♀️","🕵🏻‍♀️","👩🏻‍🎨","🧝🏿‍♀️","👩🏿‍💻","👨‍💻","👩‍🎤"],
+            ["🧛🏼‍♂️","🧟‍♂️","🧠","👻","💀","☠️","🤖","🎃","👹","👽","🤡","🤐","😱","🕸","🌚", "🧙🏾‍♂️"],
+            ["⚽️","🏀","🏈","⚾️","🎾","🏐", "🎱", "🏉","🏓","🏸","🥅","🏒","🏑","🏏","⛳️","🏹"],
+            ["🚗","🚕","🚙","🚌","🚎","🏎", "🚓", "🚑","🚒","🛴","🚲","🛵","🏍","🚔","✈️","🛫"],
+            ["🏳️","🏴","🏳️‍🌈","🇦🇫","🇦🇽","🇦🇱", "🇦🇷", "🇦🇬","🇦🇶","🇦🇮","🇦🇴","🇦🇩","🇦🇸","🇩🇿","🇦🇲","🇧🇧"],
+            ["💟","☮️","✝️","☪️","🕉","☸️","✡️", "🔯","🕎"," ☯️","☦️","🛐","⛎","♈️","♉️","♊️"]
     ]
     
     private let colorFotTheme = [#colorLiteral(red: 0.9940492511, green: 0.8414244056, blue: 0, alpha: 1),#colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1),#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1),#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1),#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1),#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)]
@@ -38,14 +38,14 @@ class ViewController: UIViewController {
     
     private func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil, emojiArray.count > 0 {
-            let randomEmoji = Int(arc4random_uniform(UInt32(emojiArray.count)))
+            let randomEmoji = emojiArray.count.arc4random()
             emoji[card.identifier] = emojiArray.remove(at: randomEmoji)
         }
         return emoji[card.identifier] ?? "?"
     }
     
     @IBOutlet weak private var flipCountView: UITextField!
-   
+    
     @IBOutlet weak private var scoreView: UITextField!
     //start new game
     @IBAction private func newGameView(_ sender: UIButton) {
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     }
     
     
-
+    
     @IBAction private func touchCard(_ sender: UIButton) {
         if let chosenCard = cardsArray.index(of: sender) {
             game.choseCard(at: chosenCard)
@@ -83,9 +83,11 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    
-    
-    
-}
-
+   }
+   
+   extension Int {
+    func arc4random() -> Int {
+        return  Int(arc4random_uniform(UInt32(self)))
+    }
+   }
+   
